@@ -67,6 +67,7 @@ def read(instructions, step=0.3):
 	name = command[0]
 	moves = instructions[2:]
 	factor = len(moves)
+	delta = 0
 	if len(command) == 1:
 		delta = step*factor
 		if "s" in moves:
@@ -83,6 +84,8 @@ def read(instructions, step=0.3):
 		delta = step*factor
 		if "s" in moves:
 			delta *= -1
+
+	print(command)
 	print({"name": name, "delta": delta})
 	return {"name": name, "delta": delta}
 
@@ -107,13 +110,13 @@ def list():
 	body_angles = alm.getAngles(body_joint_names, True)
 	_dict = {}
 	for joint_name, angle in zip(body_joint_names, body_angles):
-	    _dict[joint_name] = angle
+		_dict[joint_name] = angle
 	return _dict
 
 def main():
 	disable()
 	while True:
-		instructions = raw_input("where?: ")
+		instructions = raw_input("Give command or 'q' to exit command mode: ")
 
 		if instructions == "q":
 			break
