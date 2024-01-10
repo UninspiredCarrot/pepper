@@ -1,16 +1,16 @@
 import naoqi
 import subprocess
-import os
 import json
 import time
+import os
 
 myBroker = naoqi.ALBroker("myBroker", "0.0.0.0", 0, "10.1.32.201", 9559)
 AD = naoqi.ALProxy("ALAudioDevice")
 ATTS = naoqi.ALProxy("ALAnimatedSpeech")
 VR = naoqi.ALProxy("ALVideoRecorder")
 ALM = naoqi.ALProxy("ALMotion")
+# openai_api_key = [x[1] for x in [x.split('=') for x in open('keys.txt').read().split()] if x[0] == 'OpenAIKey'][0]
 openai_api_key = os.environ["API_KEY"]
-# openai_api_key = open("keys.txt").read().split("=")[1]
 
 def record_audio(output_file, duration=None):
 	try:
@@ -38,7 +38,6 @@ def record_video(path, output_file):
 		if instruction.lower() == "q":
 			break
 	VR.stopRecording()
-
 
 def hear(output_file):
 	url = "https://api.openai.com/v1/audio/transcriptions"
@@ -74,7 +73,6 @@ def hear(output_file):
 
 	print(response)
 	return text_value
-
 
 def speak(answer):
 	ATTS.say(answer)

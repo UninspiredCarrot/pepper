@@ -3,6 +3,7 @@ import json
 import listen
 import select
 
+openai_api_key = [x[1] for x in [x.split('=') for x in open('keys.txt').read().split()] if x[0] == 'OpenAIKey'][0]
 
 def needHelp(question):
 	if u'yes' == question.lower()[:3]:
@@ -10,19 +11,24 @@ def needHelp(question):
 	return False
 
 def isWhere(question):
-	firstThree = question.lower().split()[:3]
-	lastWord = question.lower().split()[3]
-	if firstThree == [u'where', u'is', u'the']:
-		lastWord = lastWord.encode('ascii', 'ignore')
-		if lastWord[-1] == '?':
-			lastWord = lastWord[:-1]
-		return lastWord
-	else:
-		return False
+	with open("maps/locations.json", "r") as file:
+		content = file.read()
+	locations = list(json.loads(content).keys())	
+
+	formatted_question = ''
+	for word in question:
+		formatted_question += word.encode('ascii', 'ignore')
+
+	if 'where' in formatted_question.split():
+		return 'alpha'
+		for location in locations:
+			if location in formatted_question.split():
+				return location
+	
+	return False
 	
 
 def GPTreply(question):
-	# if question.split()[:2] == ["Where", "is"]:
 
 	url = "https://api.openai.com/v1/chat/completions"
 
@@ -43,12 +49,11 @@ def GPTreply(question):
 		"curl",
 		url,
 		"-H", "Content-Type: application/json",
-		"-H", "Authorization: Bearer {}".format(os.environ["API_KEY"]),
+		"-H", "Authorization: Bearer {}".format(openai_api_key),
 		"--data-binary", "@request_payload.json"
 	]
 
 	process = subprocess.Popen(curl_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=1, universal_newlines=True)
-
 	dialogue = ""
 	word_count = 0
 

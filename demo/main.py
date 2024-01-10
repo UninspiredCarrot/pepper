@@ -13,13 +13,17 @@ def main():
             gestures.wave("Hi, can I help you?")
             question = listen.listenToText()
             # question = raw_input('listening: ')
+            navigation.navigate_to_location(path, 'alpha')
             if textProcess.needHelp(question):
                 question = listen.listenToText()
-                # question = raw_input('listening: ')
+                # question = raw_input('listening1: ')
                 item = textProcess.isWhere(question)
+                navigation.navigate_to_location(path, 'alpha')
                 if item:
+                    print(item)
                     navigation.navigate_to_location(path, item)
                 else:
+                    print('no item')
                     textProcess.GPTreply(question)
 
 

@@ -25,5 +25,5 @@ def scan(headShiftCount):
             direction = 'd'
     else:
         direction = 'a'
-    move.execute(move.read("hd"+direction))
+    # move.execute(move.read("hd"+direction))
     headShiftCount += 1
