@@ -6,9 +6,9 @@ import select
 openai_api_key = [x[1] for x in [x.split('=') for x in open('keys.txt').read().split()] if x[0] == 'OpenAIKey'][0]
 
 def needHelp(question):
-	if u'yes' == question.lower()[:3]:
-		return True
-	return False
+	if u'no' in question.lower()[:3]:
+		return False
+	return True
 
 def isWhere(question):
 	with open("maps/locations.json", "r") as file:
@@ -17,10 +17,12 @@ def isWhere(question):
 
 	formatted_question = ''
 	for word in question:
-		formatted_question += word.encode('ascii', 'ignore')
+		formatted_question += word.encode('ascii', 'ignore').lower()
+	if '?' in formatted_question:
+		formatted_question = formatted_question[:-1]
+	
 
 	if 'where' in formatted_question.split():
-		return 'alpha'
 		for location in locations:
 			if location in formatted_question.split():
 				return location
@@ -29,6 +31,7 @@ def isWhere(question):
 	
 
 def GPTreply(question):
+	openai_api_key = [x[1] for x in [x.split('=') for x in open('keys.txt').read().split()] if x[0] == 'OpenAIKey'][0]
 
 	url = "https://api.openai.com/v1/chat/completions"
 
@@ -98,3 +101,5 @@ def GPTreply(question):
 	# Check for errors
 	if process.returncode != 0:
 		print("Error:", process.stderr.read())
+
+	return 'hi'

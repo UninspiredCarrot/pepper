@@ -4,7 +4,7 @@ import os
 
 def main():
     mapPath = exploration.generateMap()
-    os.rename(mapPath, "/home/nao/demo/maps/map.explo")
+    os.rename(mapPath, "maps/map.explo")
 
     locations = exploration.setLocations()
 

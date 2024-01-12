@@ -9,8 +9,7 @@ AD = naoqi.ALProxy("ALAudioDevice")
 ATTS = naoqi.ALProxy("ALAnimatedSpeech")
 VR = naoqi.ALProxy("ALVideoRecorder")
 ALM = naoqi.ALProxy("ALMotion")
-# openai_api_key = [x[1] for x in [x.split('=') for x in open('keys.txt').read().split()] if x[0] == 'OpenAIKey'][0]
-openai_api_key = os.environ["API_KEY"]
+openai_api_key = [x[1] for x in [x.split('=') for x in open('keys.txt').read().split()] if x[0] == 'OpenAIKey'][0]
 
 def record_audio(output_file, duration=None):
 	try:
@@ -81,7 +80,7 @@ def has_text(input_text):
     return any(char.isalnum() for char in input_text)
 
 def listenToText():
-	record_audio("/home/nao/chat_recordings/temp.wav", 4)
-	reply = hear("/home/nao/chat_recordings/temp.wav")
+	record_audio("recordings/temp.wav", 4)
+	reply = hear("recordings/temp.wav")
 	print(reply)
 	return reply

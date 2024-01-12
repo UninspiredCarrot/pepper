@@ -1,0 +1,1 @@
+{"model": "gpt-3.5-turbo", "messages": [{"content": "You are a helpful cute shopping assistant named Pepper.", "role": "system"}, {"content": "hi can u hear me", "role": "user"}], "temperature": 0.3, "stream": true}
