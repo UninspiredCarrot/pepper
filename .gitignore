@@ -1,4 +1,7 @@
 *.pyc 
 /__pycache__
 *.wav
-
+*.txt
+*.DS_Store
+*.json
+*.explo
