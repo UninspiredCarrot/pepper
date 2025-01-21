@@ -5,8 +5,6 @@ We wanted to make Pepper into a shopping assistant who can chat with the custome
 
 ## Important Files
 
-**DUE TO VERY DUMB LIMITING REASONS ALL OF THE PYTHON IS IN PYTHON2.7**
-
 ### `move.py`
 
 This file opens a shell that allows the user to move pepper and its joints as they wish using simple `WASD` commands.
